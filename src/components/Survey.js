@@ -14,7 +14,6 @@ const Survey = () => {
       .firstPage()
       .catch(err => console.log(err))
     const newItems = records.map(record => {
-      console.log(record)
       const { id, fields } = record
       return { id, fields }
     })
@@ -26,7 +25,40 @@ const Survey = () => {
     getRecords()
   }, [])
 
-  return <h2>survey component</h2>
+  return (
+    <Wrapper className="section">
+      <div className="container">
+        <Title title="survey"></Title>
+        <h3>most important room in the house?</h3>
+        {loading ? (
+          <h3>loading...</h3>
+        ) : (
+          <ul>
+            {items.map(item => {
+              const {
+                id,
+                fields: { name, votes },
+              } = item
+              return (
+                <li key={id}>
+                  <div className="key">
+                    {name.toUpperCase().substring(0, 2)}
+                  </div>
+                  <div>
+                    <h4>{name}</h4>
+                    <p>{votes} votes</p>
+                  </div>
+                  <button onClick={() => console.log('emilokan')}>
+                    <FaVoteYea />
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+        )}
+      </div>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.section`
